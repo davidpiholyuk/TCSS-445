@@ -3,7 +3,9 @@
 
 pull from repo  
 
-cd server
+
+ 
+cd server (ON WINDOWS)
 
 npm install
 
