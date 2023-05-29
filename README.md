@@ -1,4 +1,7 @@
 # TCSS-445
-# cd server
-# npm install
-# npm start
+
+
+pull from repo
+cd server
+npm install
+npm start
