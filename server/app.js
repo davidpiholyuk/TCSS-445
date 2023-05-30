@@ -29,7 +29,6 @@ app.post('/insert', (request, response) => {
     result
         .then(data => response.json({ success: true }))
         .catch(err => console.log(err));
-
 });
 
 // read
@@ -47,10 +46,10 @@ app.get('/getAll', (request, response) => {
 
 //read
 app.get('/search', (request, response) => {
-    const { location } = request.query;
+    const { location, priceRange } = request.query;
     const db = service.getServiceInstance();
 
-    db.searchProperties(location)
+    db.searchProperties(location, priceRange)
         .then(data => response.json({ data: data }))
         .catch(err => console.log(err));
 });
@@ -60,46 +59,4 @@ app.get('/search', (request, response) => {
 // delete
 
 
-
-
 app.listen(process.env.PORT, () => console.log('app is running'));
- //app.listen(3000, () => console.log(`App listening at http://localhost:${3000}`));
-
-// // Port number for the server to listen on
-// const port = 3000;
-
-// // Define a route handler for GET requests to /country
-// app.get('/', (req, res) => {
-
-
-
-//     // Connect to the database
-//     connection.connect(function (err) {
-//         if (err) {
-//             return console.error('error: ' + err.message);  // If an error occurs during connection, log it
-//         }
-//         console.log('Connected to the MySQL server.');  // If connection is successful, log it
-//     });
-
-//     // SQL query to get data from the Country table
-//     let sql = `SELECT * FROM Country WHERE countryID=?`;
-
-//     // Send the query to the database
-//     connection.query(sql, [req.query.id], (error, results) => {
-//         if (error) {
-//             return console.error(error.message);  // If an error occurs during the query, log it
-//         }
-//         res.send(results);  // If the query is successful, send the results back to the client
-//     });
-
-//     // Close the database connection
-//     connection.end(function (err) {
-//         if (err) {
-//             return console.log('error:' + err.message);  // If an error occurs while closing the connection, log it
-//         }
-//         console.log('Close the database connection.');  // If the connection is successfully closed, log it
-//     });
-// });
-
-// // Start the server and have it listen on the given port
-// app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

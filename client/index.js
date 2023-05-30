@@ -6,25 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
-// const addBtn = document.querySelector('#add-name-btn');
-// addBtn.addEventListener('click', function () {
-//     const nameInput = document.querySelector('#name-input');
-//     const name = nameInput.value;
-//     nameInput.value = "";
-
-//     //send to backend
-//     fetch('http://localhost:3000/insert', {
-//         headers: {
-//             'Content-type': 'application/json'
-//         },
-//         method: 'POST',
-//         body: JSON.stringify({ name: name })
-//     })
-//         .then(response => response.json())
-//         .then(data => insertRowIntoTable(data['data']));
-// });
-
+console.log("Before adding event listener");
 const propertySearchForm = document.querySelector('#property-search-form');
 propertySearchForm.addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -36,13 +18,14 @@ propertySearchForm.addEventListener('submit', function (event) {
     const location = locationInput.value;
     //  const propertyType = propertyTypeInput.value;
     const priceRange = priceRangeInput.value;
+    console.log("PRICE::: " + priceRange);
 
     // Send search request to backend with location and price range
     fetch(`http://localhost:3000/search?location=${location}&priceRange=${priceRange}`)
         .then(response => response.json())
         .then(data => displaySearchResults(data.data));
 });
-
+console.log("After adding event listener");
 
 
 function displaySearchResults(data) {
@@ -68,16 +51,6 @@ function displaySearchResults(data) {
   `;
     tableHead.appendChild(headerRow);
 
-    // data.forEach(result => {
-
-    //     html += `<div class="result-item">
-    //                 <h3>${result.ListingID}</h3>
-    //                 <p>${result.AddressID}</p>
-    //                 <p>${result['Listing Price']}</p>
-    //                 <p>${result['Listing Status']}</p>
-    //             </div>`;
-    // });
-    // Create table body rows
     data.forEach(result => {
         const row = document.createElement('tr');
         row.innerHTML = `
