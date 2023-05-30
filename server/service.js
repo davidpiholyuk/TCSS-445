@@ -47,23 +47,91 @@ class Service {
         }
     }
 
-    async insertNewName(name) {
+    // async insertNewName(name) {
+    //     try {
+
+    //         const insertID = await new Promise((resolve, reject) => {
+    //             const query = `INSERT INTO country (CountryName) VALUES (?);`;
+    //             connection.query(query, [name], (err, result) => {
+    //                 if (err) reject(new Error(err.message));
+    //                 resolve(result.insertId);
+    //             })
+    //         });
+
+    //         console.log(insertID);
+    //         //   return response;
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    // async searchProperties(location, propertyType, priceRange) {
+    //     try {
+    //         const response = await new Promise((resolve, reject) => {
+    //             // Build your SQL query based on the search parameters
+    //             let query = 'SELECT * FROM Listings';
+    //             const conditions = [];
+
+    //             if (location) {
+    //                 conditions.push(`Location = '${location}'`);
+    //             }
+
+    //             if (propertyType) {
+    //                 conditions.push(`PropertyType = '${propertyType}'`);
+    //             }
+
+    //             if (priceRange) {
+    //                 const [minPrice, maxPrice] = priceRange.split('-');
+    //                 conditions.push(`Price BETWEEN ${minPrice} AND ${maxPrice}`);
+    //             }
+
+    //             if (conditions.length > 0) {
+    //                 query += ' WHERE ' + conditions.join(' AND ');
+    //             }
+
+    //             connection.query(query, (err, results) => {
+    //                 if (err) reject(new Error(err.message));
+    //                 resolve(results);
+    //             });
+    //         });
+
+    //         return response;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+    async searchProperties(location, priceRange) {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = `INSERT INTO country VALUES`;
-                connection.query(query, (err, results) => {
+                const query = `
+              SELECT *
+              FROM Listings
+              INNER JOIN Address_Zipcode ON Listings.AddressID = Address_Zipcode.AddressID
+              INNER JOIN Zip ON Address_Zipcode.ZipID = Zip.ZipID
+              INNER JOIN City ON Zip.CityID = City.CityID
+              WHERE City.\`City Name\` = ?;
+            `;
+
+                // Check if a price range is provided
+                if (priceRange) {
+                    const [minPrice, maxPrice] = priceRange.split('-');
+                    query += ` AND Listings.ListingPrice BETWEEN ${minPrice} AND ${maxPrice}`;
+                }
+                connection.query(query, [location], (err, results) => {
                     if (err) reject(new Error(err.message));
+                    console.log(results);
                     resolve(results);
-                })
+                });
             });
 
-            // console.log(response);
             return response;
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error);
         }
     }
+
 }
 
 module.exports = Service;

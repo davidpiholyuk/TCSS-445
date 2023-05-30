@@ -11,16 +11,7 @@
 
 <body>
     <main>
-        <label>Name:</label>
-        <input type="text" id="name-input">
-        <button id="add-name-btn">Add Name</button>
-
-        <br><br><br>
-        <div>
-            <input placeholder="search by name" id="search-input">
-            <button id="search-btn">Search</button>
-        </div>
-
+        
         <table id="table">
             <thead>
                 <th>
@@ -34,10 +25,52 @@
             <!-- leave tbody empty as it will be inserted in javascript-->
             <tbody></tbody>
         </table>
+
+        <br><br><br>
+
+        <!-- Property Search Form -->
+        <form id="property-search-form">
+            <label for="location-input">Location:</label>
+            <input type="text" id="location-input" name="location">
+
+            <label for="property-type-input">Property Type:</label>
+            <select id="property-type-input" name="propertyType">
+                <option value="">Any</option>
+                <option value="House">House</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Condo">Condo</option>
+            </select>
+
+            <label for="price-range-input">Price Range:</label>
+            <select id="price-range-input" name="priceRange">
+                <option value="">Any</option>
+                <option value="0-100000">$0 - $100,000</option>
+                <option value="100000-200000">$100,000 - $200,000</option>
+                <option value="200000-300000">$200,000 - $300,000</option>
+                <option value="300000-400000">$300,000 - $400,000</option>
+                <option value="400000-500000">$400,000 - $500,000</option>
+                <option value="200000-300000">$500,000 - $600,000</option>
+                <option value="600000-700000">$600,000 - $700,000</option>
+                <option value="700000-800000">$700,000 - $800,000</option>
+                <option value="800000-900000">$800,000 - $900,000</option>
+                <option value="900000-1000000">$900,000 - $1,000,000</option>
+                <!-- Add more price ranges as needed -->
+            </select>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Property Search Results -->
+        <div id="property-search-results"></div>
+
+
     </main>
 
+
+
+
     <script src="index.js"></script>
-    
+
 </body>
 
 </html>

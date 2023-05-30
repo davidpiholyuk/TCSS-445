@@ -22,8 +22,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // create
 app.post('/insert', (request, response) => {
-    // console.log(request.body);
-    const {name} = request.body;
+    console.log(request.body);
+    const { name } = request.body;
+    const db = service.getServiceInstance();
+    const result = db.insertNewName(name);
+    result
+        .then(data => response.json({ success: true }))
+        .catch(err => console.log(err));
 
 });
 
@@ -37,11 +42,25 @@ app.get('/getAll', (request, response) => {
     // response.json({
     //     success: true
     // });
-})
+});
+
+
+//read
+app.get('/search', (request, response) => {
+    const { location } = request.query;
+    const db = service.getServiceInstance();
+
+    db.searchProperties(location)
+        .then(data => response.json({ data: data }))
+        .catch(err => console.log(err));
+});
 
 // update
 
 // delete
+
+
+
 
 app.listen(process.env.PORT, () => console.log('app is running'));
  //app.listen(3000, () => console.log(`App listening at http://localhost:${3000}`));
