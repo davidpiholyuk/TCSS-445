@@ -9,6 +9,6 @@ Clone repository
 
 Change directory to the server folder in the project directory. On windows it is "cd server"
 
-run npm install in the terminal
+run "npm install" in the terminal
 
-then npm start
+then "npm start"
