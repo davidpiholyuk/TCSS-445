@@ -1,13 +1,14 @@
 # TCSS-445
 
+
+Instructions: 
+
 install https://nodejs.org/en/download/
 
-pull from repo  
+Clone repository
 
+Change directory to the server folder in the project directory. On windows it is "cd server"
 
- 
-cd server (ON WINDOWS)
+run npm install in the terminal
 
-npm install
-
-npm start
+then npm start
