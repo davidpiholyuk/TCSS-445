@@ -82,6 +82,31 @@ class Service {
         }
     }
 
+    async getPropertyDetails(addressID) {
+        try {
+          const response = await new Promise((resolve, reject) => {
+            const query = `
+              SELECT *
+              FROM Listings
+              INNER JOIN Address_Zipcode ON Listings.AddressID = Address_Zipcode.AddressID
+              INNER JOIN Zip ON Address_Zipcode.ZipID = Zip.ZipID
+              INNER JOIN City ON Zip.CityID = City.CityID
+              WHERE Listings.AddressID = ?
+            `;
+      
+            connection.query(query, [addressID], (err, results) => {
+              if (err) reject(new Error(err.message));
+              resolve(results[0]); // Assuming only one row will be returned
+            });
+          });
+      
+          return response;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
+
 
 }
 

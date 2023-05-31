@@ -54,6 +54,17 @@ app.get('/search', (request, response) => {
         .catch(err => console.log(err));
 });
 
+
+app.get('/propertyDetails', (request, response) => {
+    const { addressID } = request.query;
+    const db = service.getServiceInstance();
+  
+    db.getPropertyDetails(addressID)
+      .then(data => response.json(data))
+      .catch(err => console.log(err));
+  });
+  
+
 // update
 
 // delete
