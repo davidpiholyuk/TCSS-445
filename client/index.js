@@ -27,6 +27,43 @@ propertySearchForm.addEventListener('submit', function (event) {
 });
 console.log("After adding event listener");
 
+// Get a reference to the "Add Listing" button
+const addListingButton = document.getElementById("add-listing-button");
+
+// Get a reference to the dropdown menu
+const listingDropdown = document.getElementById("listing-dropdown");
+
+// Add an event listener to handle the button click event
+addListingButton.addEventListener("click", function() {
+    // Show the dropdown menu
+    listingDropdown.style.display = "block";
+});
+
+// Get a reference to the "Save Listing" button
+const saveListingButton = document.getElementById("save-listing-button");
+
+// Add an event listener to handle the button click event
+saveListingButton.addEventListener("click", function() {
+
+    // Retrieve the selected values from the dropdown menu
+    const listingType = document.getElementById("listing-status-input").value;
+    const streetName = document.getElementById("street-name-input").value;
+    const listingPrice = document.getElementById("listing-price-input").value;
+
+    // Perform further processing or validation with the selected values
+    console.log("Listing Type:", listingType);
+    console.log("Street Name:", streetName);
+    console.log("Listing Price:", listingPrice);
+
+    // Hide the dropdown menu
+    listingDropdown.style.display = "none";
+
+    // Clear the input fields
+    document.getElementById("listing-status-input").value = "";
+    document.getElementById("street-name-input").value = "";
+    document.getElementById("listing-price-input").value = "";
+});
+
 
 function displaySearchResults(data) {
     const searchResultsContainer = document.querySelector('#property-search-results');
