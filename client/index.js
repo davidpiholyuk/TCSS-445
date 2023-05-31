@@ -1,8 +1,7 @@
 // When the page first loads, fetch the data from the database and populate the HTML table
 document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:3000/getAll')
-        .then(response => response.json())
-        .then(data => loadHTMLTable(data['data']));
+        .then(response => response.json());
 });
 
 // Event listener for the property search form submission
@@ -105,30 +104,41 @@ propertySelectionForm.addEventListener('submit', function (event) {
         .catch(error => console.log(error));
 });
 
-// Display property details in a container
-function displayPropertyDetails(property) {
+function displayPropertyDetails(data) {
     const propertyDetailsContainer = document.querySelector('#property-details');
-    propertyDetailsContainer.innerHTML = '';
 
-    // Create HTML elements to display property details
-    const addressHeading = document.createElement('h2');
-    addressHeading.textContent = `Property Details for ${property.Address}`;
-
-    const listingIdParagraph = document.createElement('p');
-    listingIdParagraph.textContent = `Listing ID: ${property.ListingID}`;
-
-    const priceParagraph = document.createElement('p');
-    priceParagraph.textContent = `Price: ${property['Listing Price']}`;
-
-    const statusParagraph = document.createElement('p');
-    statusParagraph.textContent = `Status: ${property['Listing Status']}`;
-
-    // Append the elements to the container
-    propertyDetailsContainer.appendChild(addressHeading);
-    propertyDetailsContainer.appendChild(listingIdParagraph);
-    propertyDetailsContainer.appendChild(priceParagraph);
-    propertyDetailsContainer.appendChild(statusParagraph);
+    let table = propertyDetailsContainer.querySelector('table');
+    if (!table) {
+        table = document.createElement('table');
+        table.innerHTML = `
+      <caption>Property Results</caption>
+        <tbody>
+          ${Object.entries(data)
+                .map(([key, value]) => `
+              <tr>
+                <td>${key}</td>
+                <td>${value}</td>
+              </tr>
+            `)
+                .join('')}
+        </tbody>
+      `;
+        propertyDetailsContainer.appendChild(table);
+    } else {
+        table.querySelector('tbody').innerHTML = `
+        ${Object.entries(data)
+                .map(([key, value]) => `
+            <tr>
+              <td>${key}</td>
+              <td>${value}</td>
+            </tr>
+          `)
+                .join('')}
+      `;
+    }
 
     // Make the property details container visible
     propertyDetailsContainer.classList.remove('hidden');
 }
+
+
