@@ -7,6 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Web App</title>
+
+    <style>
+        .button-container {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .button-container button {
+            margin: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        .form-field {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .form-field label {
+            margin-right: 5px;
+        }
+    
+        .form-buttons {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,7 +46,7 @@
         <br><br><br>
 
         <!-- Property Search Form -->
-        <form id="property-search-form">
+        <form id="property-search-form" style="position: absolute; top: 7%; left: 50%; transform: translate(-50%, -50%)">
             <label for="location-input">Location:</label>
             <input type="text" id="location-input" name="location">
 
@@ -44,16 +75,32 @@
             </select>
 
             <button type="submit">Search</button>
+            <button type="button" id="add-listing-button">Add Listing</button>
         </form>
 
         <!-- Property Search Results -->
         <div id="property-search-results"></div>
 
+        <!-- Drop Down menu for adding listing -->
+        <div id="listing-dropdown" style="display: none; position: absolute; top: 12%; left: 50%; transform: translate(-50%, -50%);">
+            <label for="listing-status-input">Listing Status:</label>
+            <select id="listing-status-input" name="listingStatus">
+                <option value="active">Active</option>
+                <option value="sold">Sold</option>
+                <option value="pending">Pending</option>
+            </select>
+        
+            <label for="street-name-input">Street Name:</label>
+            <input type="text" id="street-name-input" name="streetName">
 
+            <label for="listing-price-input">Price:</label>
+            <input type="text" id="listing-price-input" name="listingPrice">
+        
+            <!-- Additional input fields for listing information can be added here -->
+        
+            <button type="button" id="save-listing-button">Save Listing</button>
+        </div>
     </main>
-
-
-
 
     <script src="index.js"></script>
 
