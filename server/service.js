@@ -61,6 +61,8 @@ class Service {
 
                 const params = [location];
 
+                console.log(params);
+
                 console.log("price " + priceRange);
                 if (priceRange) {
                     const [minPrice, maxPrice] = priceRange.split('-');
