@@ -178,7 +178,7 @@ class Service {
                 WHERE \`City\`.\`City Name\` = ?
                 GROUP BY \`City\`.\`City Name\`, \`Zip\`.\`Zipcode\`
             `;
-            
+
 
 
                 connection.query(query, [city], (err, results) => {
@@ -192,6 +192,36 @@ class Service {
             console.log(error);
         }
     }
+
+    async getHomesSold() {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `
+                SELECT \`City\`.\`City Name\`, COUNT(\`Sales\`.\`SaleID\`) AS \`Number of Homes Sold\`
+                FROM \`Sales\`
+                JOIN \`Listings\` ON \`Sales\`.\`ListingID\` = \`Listings\`.\`ListingID\`
+                JOIN \`Address_Zipcode\` ON \`Listings\`.\`AddressID\` = \`Address_Zipcode\`.\`AddressID\`
+                JOIN \`Zip\` ON \`Address_Zipcode\`.\`ZipID\` = \`Zip\`.\`ZipID\`
+                JOIN \`City\` ON \`Zip\`.\`CityID\` = \`City\`.\`CityID\`
+                WHERE \`Sales\`.\`Sale Date\` >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+                GROUP BY \`City\`.\`City Name\`, \`Zip\`.\`Zipcode\`
+            `;
+            
+
+
+                connection.query(query, (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
 
 

@@ -100,6 +100,14 @@ app.get('/averagePrice', (request, response) => {
         .catch(err => console.log(err));
 });
 
+app.get('/homesSold', (request, response) => {
+    const db = service.getServiceInstance();
+  
+    db.getHomesSold()
+      .then(data => response.json({ data: data }))
+      .catch(err => console.log(err));
+  });
+  
 
 
 

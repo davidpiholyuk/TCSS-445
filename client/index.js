@@ -342,3 +342,63 @@ function displayAveragePrice(prices) {
     searchResultsContainer.classList.remove('hidden');
 }
 
+
+document.querySelector("#homes-sold-form").addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // Retrieve the selected city from the dropdown menu
+    const city = document.querySelector("#city-select").value;
+
+    // Send request to the backend to fetch the number of homes sold data
+    fetch(`http://localhost:3000/homesSold?city=${city}`)
+        .then(response => response.json())
+        .then(data => displayHomesSold(data))
+        .catch(error => console.log(error));
+});
+
+function displayHomesSold(data) {
+    data = data.data;
+    console.log(data);
+    const homesSoldContainer = document.querySelector("#homes-sold-results");
+
+    // Create or clear the results table
+    let table = homesSoldContainer.querySelector('table');
+    if (!table) {
+        table = document.createElement('table');
+        table.innerHTML = `
+            <caption>Homes Sold Results</caption>
+            <thead>
+                <tr>
+                    <th>City Name</th>
+                    <th>Number of Homes Sold</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
+        homesSoldContainer.appendChild(table);
+    } else {
+        table.querySelector('tbody').innerHTML = '';
+    }
+
+    // Populate the table with homes sold results
+    if (data.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="2">No results found.</td>`;
+        table.querySelector('tbody').appendChild(row);
+    } else {
+        data.forEach(result => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${result["City Name"]}</td>
+            <td>${result["Number of Homes Sold"]}</td>
+        `;
+
+            table.querySelector('tbody').appendChild(row);
+        });
+    }
+
+    // Make the results container visible
+    homesSoldContainer.classList.remove('hidden');
+}
+
+

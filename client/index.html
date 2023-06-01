@@ -94,6 +94,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         #listing-dropdown-header {
             margin-top: 30px;
         }
@@ -213,6 +214,29 @@
             <input type="submit" value="Submit">
         </form>
 
+        <h2>Number of Homes Sold</h2>
+
+        <form id="homes-sold-form">
+            <label for="city-select">Show Homes Sold:</label>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="homes-sold-results" class="hidden">
+            <table>
+                <caption>Homes Sold Results</caption>
+                <thead>
+                    <tr>
+                        <th>City Name</th>
+                        <th>Number of Homes Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+
         <div id="property-details" class="hidden">
             <!-- Property details will be displayed here -->
         </div>
@@ -228,13 +252,17 @@
         <div id="average-price-results">
             <!-- The average price will be displayed here -->
         </div>
-        
+
+        <div id="homes-sold-results" class="hidden">
+
+        </div>
+
         <div id="listing-dropdown-header" class="hidden">
             <h2>Add/Update Listing</h2>
         </div>
         <!--dropdown menu-->
-        <div id="listing-dropdown" class="hidden">     
-            <p>If you do not fill out all fields no updates will be made. 
+        <div id="listing-dropdown" class="hidden">
+            <p>If you do not fill out all fields no updates will be made.
                 This form assumes all input is in the correct format, use whole numbers only.</p>
             <label for="agent-name-input">Agent Name:</label>
             <select id="agent-name-input" name="agentName"></select>
@@ -245,7 +273,7 @@
                 <option value="sold">Sold</option>
                 <option value="pending">Pending</option>
             </select>
-        
+
             <label for="street-name-input">Street Name:</label>
             <input type="text" id="street-name-input" name="streetName">
 
@@ -275,15 +303,15 @@
 
             <label for="zip-input">Zipcode:</label>
             <input type="text" type="text" id="zip-input" name="zipcode">
-            
+
             <label for="tax-input">Last Years Taxes Paid:</label>
             <input type="text" id="tax-input" name="taxes">
 
             <label for="listing-price-input">Price:</label>
             <input type="text" id="listing-price-input" name="price">
-            
+
             <!-- Additional input fields for listing information can be added here -->
-        
+
             <button type="button" id="save-listing-button">Save Listing</button>
         </div>
 
