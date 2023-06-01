@@ -28,9 +28,9 @@ const addListingButton = document.getElementById("add-listing-button");
 const listingDropdown = document.getElementById("listing-dropdown");
 const listingDropdownHead = document.getElementById("listing-dropdown-header");
 // Add an event listener to handle the button click event
-addListingButton.addEventListener("click", function() {
-    if(listingDropdown.style.display == "none") {
-       // Populate agent selection list
+addListingButton.addEventListener("click", function () {
+    if (listingDropdown.style.display == "none") {
+        // Populate agent selection list
         fetch('http://localhost:3000/Agents')
             .then(response => response.json())
             .then(agentNames => {
@@ -46,7 +46,7 @@ addListingButton.addEventListener("click", function() {
                     option.textContent = agentName; // Set the visible text of the option to the agent name
                     dropdownSelect.appendChild(option); // Append the option to the dropdown select element
                 });
-        }) 
+            })
 
         // Populate zipcode selection list
         fetch('http://localhost:3000/Zipcodes')
@@ -64,9 +64,9 @@ addListingButton.addEventListener("click", function() {
                     option.textContent = zip; // Set the visible text of the option to the agent name
                     dropdownSelect.appendChild(option); // Append the option to the dropdown select element
                 });
-        }) 
+            })
         listingDropdownHead.style.display = "flex";
-        listingDropdown.style.display = "flex"; 
+        listingDropdown.style.display = "flex";
     } else {
         const agentdropdownSelect = document.getElementById('agent-name-input');
         agentdropdownSelect.innerHTML = '';
@@ -81,7 +81,7 @@ addListingButton.addEventListener("click", function() {
 const saveListingButton = document.getElementById("save-listing-button");
 
 // Add an event listener to handle the button click event
-saveListingButton.addEventListener("click", function() {
+saveListingButton.addEventListener("click", function () {
 
     // Retrieve the selected values from the dropdown menu
     const listingType = document.getElementById("listing-status-input").value;
@@ -89,7 +89,7 @@ saveListingButton.addEventListener("click", function() {
     const listingPrice = document.getElementById("listing-price-input").value;
 
     //If the required fields aren't filled out do nothing
-    if (!listingType || !streetName || !listingPrice ) {
+    if (!listingType || !streetName || !listingPrice) {
         return;
     }
 
@@ -218,33 +218,33 @@ agentSearchForm.addEventListener('submit', function (event) {
     console.log(selectedAgent);
 
     // Send request to the backend to fetch properties associated with the agent
-    fetch(`http://localhost:3000/agentProperties?agentName=${selectedAgent}`)
+    fetch(`http://localhost:3000/agentProperties?agentID=${selectedAgent}`)
+
 
         .then(response => response.json())
         .then(data => displayAgentProperties(data))
         .catch(error => console.log(error));
 });
 
-// Display agent properties in an HTML table or other appropriate format
-function displayAgentProperties(data) {
-    // Your code here to handle and display the data.
-    // This could be similar to the displaySearchResults() and displayPropertyDetails() functions.
-    console.log("printing");
-    console.log(data);
+function displayAgentProperties(agent) {
+    data = agent.data;
     const searchResultsContainer = document.querySelector("#agent-search-results");
 
+    // console.log(data);
     // Create or clear the search results table
     let table = searchResultsContainer.querySelector('table');
     if (!table) {
         table = document.createElement('table');
         table.innerHTML = `
-        <caption>Property Search Results</caption>
+        <caption>Agent Information</caption>
             <thead>
                 <tr>
-                    <th>Listing ID</th>
-                    <th>Address</th>
-                    <th>Price</th>
-                    <th>Status</th>
+                    <th>Agent ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Years of Experience</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -254,19 +254,21 @@ function displayAgentProperties(data) {
         table.querySelector('tbody').innerHTML = '';
     }
 
-    // Populate the table with search results
+    // Populate the table with agent information
     if (data.length === 0) {
         const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="4">No results found.</td>`;
+        row.innerHTML = `<td colspan="6">No agent found.</td>`;
         table.querySelector('tbody').appendChild(row);
     } else {
-        data.forEach(result => {
+        data.forEach(agent => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${result.ListingID}</td>
-                <td>${result.Address}</td>
-                <td>${result['Listing Price']}</td>
-                <td>${result['Listing Status']}</td>
+                <td>${agent.AgentID}</td>
+                <td>${agent['First Name']}</td>
+                <td>${agent['Last Name']}</td>
+                <td>${agent.Email}</td>
+                <td>${agent['Phone Number']}</td>
+                <td>${agent['Years of Experience']}</td>
             `;
             table.querySelector('tbody').appendChild(row);
         });
@@ -274,8 +276,67 @@ function displayAgentProperties(data) {
 
     // Make the search results container visible
     searchResultsContainer.classList.remove('hidden');
-
 }
 
 
+
+document.querySelector("#city-select-form").addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const city = document.querySelector("#city-select").value;
+
+    fetch(`http://localhost:3000/averagePrice?city=${city}`)
+        .then(response => response.json())
+        .then(data => displayAveragePrice(data))
+        .catch(error => console.log(error));
+});
+
+
+
+// Display average price in an HTML table
+function displayAveragePrice(prices) {
+
+    data = prices.data;
+    console.log(data);
+
+    const searchResultsContainer = document.querySelector("#average-price-results");
+
+    // Create or clear the results table
+    let table = searchResultsContainer.querySelector('table');
+    if (!table) {
+        table = document.createElement('table');
+        table.innerHTML = `
+            <caption>Average Price Results</caption>
+            <thead>
+                <tr>
+                    <th>City Name</th>
+                    <th>Average Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
+        searchResultsContainer.appendChild(table);
+    } else {
+        table.querySelector('tbody').innerHTML = '';
+    }
+
+    // Populate the table with average price results
+    if (data.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="2">No results found.</td>`;
+        table.querySelector('tbody').appendChild(row);
+    } else {
+        data.forEach(result => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${result["City Name"]}</td>
+                <td>${result["Average Price"]}</td>
+            `;
+            table.querySelector('tbody').appendChild(row);
+        });
+    }
+
+    // Make the results container visible
+    searchResultsContainer.classList.remove('hidden');
+}
 

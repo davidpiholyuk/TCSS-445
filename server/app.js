@@ -67,11 +67,13 @@ app.get('/propertyDetails', (request, response) => {
 app.get('/agentProperties', (request, response) => {
     console.log("here");
 
-    const { agentName } = request.query;
+    const { agentID } = request.query;
+
     const db = service.getServiceInstance();
+    console.log(agentID);
 
 
-    db.searchAgent(agentName)
+    db.searchAgent(agentID)
         .then(data => response.json({ data: data }))
         .catch(err => console.log(err));
 });
@@ -79,22 +81,32 @@ app.get('/agentProperties', (request, response) => {
 app.get('/Agents', (request, response) => {
     const db = service.getServiceInstance();
     db.getAgents()
-      .then(data => response.json({ data: data }))
-      .catch(error => console.log(error));
+        .then(data => response.json({ data: data }))
+        .catch(error => console.log(error));
 });
 
 app.get('/Zipcodes', (request, response) => {
     const db = service.getServiceInstance();
     db.getZipcodes()
-      .then(data => response.json({ data: data }))
-      .catch(error => console.log(error));
+        .then(data => response.json({ data: data }))
+        .catch(error => console.log(error));
 });
+
+app.get('/averagePrice', (request, response) => {
+    const { city } = request.query;
+    const db = service.getServiceInstance();
+    db.getAveragePrice(city)
+        .then(data => response.json({ data: data }))
+        .catch(err => console.log(err));
+});
+
 
 
 
 // update
 
 // delete
+
 
 
 app.listen(process.env.PORT, () => console.log('app is running'));

@@ -106,13 +106,13 @@ class Service {
         }
     }
 
-    async searchAgent(agentName) {
-        console.log("agent name " + agentName);
+    async searchAgent(agentID) {
+        console.log("agent ID: " + agentID);
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = `SELECT \`AgentID\`, \`First Name\`, \`Last Name\`, \`Phone Number\`, \`Email\` FROM Agent WHERE \`First Name\` LIKE ? OR \`Last Name\` LIKE ?`;
+                const query = `SELECT * FROM Agent WHERE AgentID = ?`;
 
-                connection.query(query, [`%${agentName}%`, `%${agentName}%`], (err, results) => {
+                connection.query(query, [agentID], (err, results) => {
                     if (err) reject(new Error(err.message));
                     resolve(results);
                 });
@@ -124,18 +124,19 @@ class Service {
         }
     }
 
+
     async getAgents() {
         try {
-          const query = "SELECT CONCAT(`First Name`, ' ', `Last Name`) AS `fullName` FROM Agent";
-          const results = await new Promise((resolve, reject) => {
-            connection.query(query, (error, results) => {
-                if (error) {
-                    reject(new Error(error.message));
-                } else {
-                    resolve(results);
-                }
+            const query = "SELECT CONCAT(`First Name`, ' ', `Last Name`) AS `fullName` FROM Agent";
+            const results = await new Promise((resolve, reject) => {
+                connection.query(query, (error, results) => {
+                    if (error) {
+                        reject(new Error(error.message));
+                    } else {
+                        resolve(results);
+                    }
+                });
             });
-          });
             const agentNames = results.map((row) => row.fullName);
             return agentNames;
         } catch (error) {
@@ -156,7 +157,7 @@ class Service {
                     }
                 });
             });
-          
+
             const zipcodes = results.map((row) => row.Zipcode);
             return zipcodes;
         } catch (error) {
@@ -164,6 +165,35 @@ class Service {
             return [];
         }
     }
+
+    async getAveragePrice(city) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `
+                SELECT \`City\`.\`City Name\`, AVG(\`Listings\`.\`Listing Price\`) AS \`Average Price\`
+                FROM \`Listings\`
+                JOIN \`Address_Zipcode\` ON \`Listings\`.\`AddressID\` = \`Address_Zipcode\`.\`AddressID\`
+                JOIN \`Zip\` ON \`Address_Zipcode\`.\`ZipID\` = \`Zip\`.\`ZipID\`
+                JOIN \`City\` ON \`Zip\`.\`CityID\` = \`City\`.\`CityID\`
+                WHERE \`City\`.\`City Name\` = ?
+                GROUP BY \`City\`.\`City Name\`, \`Zip\`.\`Zipcode\`
+            `;
+            
+
+
+                connection.query(query, [city], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
 
 

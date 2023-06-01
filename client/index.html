@@ -165,6 +165,20 @@
             </form>
         </div>
 
+        <form id="city-select-form">
+            <h2>Average Price</h2>
+            <label for="city-select">Choose a city:</label>
+            <select id="city-select">
+
+                <option value="">Any</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="San Francisco">San Francisco</option>
+                <option value="San Diego">San Diego</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+
+
 
 
         <div id="property-details" class="hidden">
@@ -178,10 +192,17 @@
         <div id="agent-search-results" class="hidden">
             <!-- Agent search results will be displayed here -->
         </div>
-        <div id="listing-dropdown-header" class="hidden"> <h2>Add/Update Listing</h2> </div>
+
+        <div id="average-price-results">
+            <!-- The average price will be displayed here -->
+        </div>
+        
+        <div id="listing-dropdown-header" class="hidden">
+            <h2>Add/Update Listing</h2>
+        </div>
         <!--dropdown menu-->
-        <div id="listing-dropdown" class="hidden"> 
-            
+        <div id="listing-dropdown" class="hidden">
+
 
             <label for="agent-name-input">Agent Name:</label>
             <select id="agent-name-input" name="agentName"></select>
@@ -192,7 +213,7 @@
                 <option value="sold">Sold</option>
                 <option value="pending">Pending</option>
             </select>
-        
+
             <label for="street-name-input">Street Name:</label>
             <input type="text" id="street-name-input" name="streetName">
 
@@ -201,9 +222,9 @@
 
             <label for="listing-price-input">Price:</label>
             <input type="text" id="listing-price-input" name="listingPrice">
-            
+
             <!-- Additional input fields for listing information can be added here -->
-        
+
             <button type="button" id="save-listing-button">Save Listing</button>
         </div>
 
