@@ -73,8 +73,15 @@ This command will install the required packages (nodemon, express, mysql2, doten
 
 **Starting the Server:**
 
+Once you have the .env file created with the correct information you can continue here.
+
+Assuming you are using VSCode install the "Live Server" extension by Ritwick Dey then open the index.html file and hit "Go Live" that appears on 
+the bottom right after installing the extention. This will launch your web browser with the UI but the backend is not connected yet.
+
 Make sure you have a MySQL database set up and properly configured with the required credentials and connection details before running the server.
 
-In the terminal/command prompt, still inside the server folder, run the following command to start the server:
+In the terminal/command prompt, go inside the server folder, run the following command to start the server:
 
 `npm start`
+
+Everything should be connected and working verify that the output in the terminal says "connected"
