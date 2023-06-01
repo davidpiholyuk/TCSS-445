@@ -53,17 +53,7 @@
             margin-left: 10px;
         }
 
-        .property-selection-form {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-        .property-selection-form label,
-        .property-selection-form select,
-        .property-selection-form button {
-            margin-right: 10px;
-        }
 
         .property-details {
             margin-top: 20px;
@@ -135,8 +125,12 @@
         </div>
 
         <div class="form-section property-selection-form">
+
             <form id="property-selection-form">
+                <h2>Address Search</h2>
+
                 <div class="form-field">
+
                     <label for="address-select">Select Address:</label>
                     <select id="address-select" name="address">
                         <option value="">Choose an address</option>
@@ -152,12 +146,37 @@
             </form>
         </div>
 
+        <div class="form-section agent-search">
+            <form id="realestate-agent-search">
+                <h2>Agent Search</h2>
+                <div class="form-field">
+                    <label for="agent-select">Select Agent:</label>
+                    <select id="agent-select" name="agent">
+                        <option value="">Choose a Real Estate Agent</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Doe</option>
+
+                        <!-- Add more options for other agents -->
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Show Agents</button>
+                </div>
+            </form>
+        </div>
+
+
+
         <div id="property-details" class="hidden">
             <!-- Property details will be displayed here -->
         </div>
 
         <div id="property-search-results" class="hidden">
             <!-- Property search results will be displayed here -->
+        </div>
+
+        <div id="agent-search-results" class="hidden">
+            <!-- Agent search results will be displayed here -->
         </div>
 
         <div id="listing-dropdown" class="hidden">

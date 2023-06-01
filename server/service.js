@@ -84,8 +84,8 @@ class Service {
 
     async getPropertyDetails(addressID) {
         try {
-          const response = await new Promise((resolve, reject) => {
-            const query = `
+            const response = await new Promise((resolve, reject) => {
+                const query = `
               SELECT *
               FROM Listings
               INNER JOIN Address_Zipcode ON Listings.AddressID = Address_Zipcode.AddressID
@@ -93,19 +93,39 @@ class Service {
               INNER JOIN City ON Zip.CityID = City.CityID
               WHERE Listings.AddressID = ?
             `;
-      
-            connection.query(query, [addressID], (err, results) => {
-              if (err) reject(new Error(err.message));
-              resolve(results[0]); // Assuming only one row will be returned
+
+                connection.query(query, [addressID], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results[0]); // Assuming only one row will be returned
+                });
             });
-          });
-      
-          return response;
+
+            return response;
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
-      
+    }
+
+    async searchAgent(agentName) {
+        console.log("agent name " + agentName);
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = `SELECT \`AgentID\`, \`First Name\`, \`Last Name\`, \`Phone Number\`, \`Email\` FROM Agent WHERE \`First Name\` LIKE ? OR \`Last Name\` LIKE ?`;
+
+                connection.query(query, [`%${agentName}%`, `%${agentName}%`], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
 
 
 }

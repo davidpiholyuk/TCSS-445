@@ -58,12 +58,25 @@ app.get('/search', (request, response) => {
 app.get('/propertyDetails', (request, response) => {
     const { addressID } = request.query;
     const db = service.getServiceInstance();
-  
+
     db.getPropertyDetails(addressID)
-      .then(data => response.json(data))
-      .catch(err => console.log(err));
-  });
-  
+        .then(data => response.json(data))
+        .catch(err => console.log(err));
+});
+
+app.get('/agentProperties', (request, response) => {
+    console.log("here");
+
+    const { agentName } = request.query;
+    const db = service.getServiceInstance();
+
+
+    db.searchAgent(agentName)
+        .then(data => response.json({ data: data }))
+        .catch(err => console.log(err));
+});
+
+
 
 // update
 

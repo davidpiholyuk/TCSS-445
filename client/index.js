@@ -53,6 +53,7 @@ function displaySearchResults(data) {
     if (!table) {
         table = document.createElement('table');
         table.innerHTML = `
+        <caption>Property Search Results</caption>
             <thead>
                 <tr>
                     <th>Listing ID</th>
@@ -140,5 +141,78 @@ function displayPropertyDetails(data) {
     // Make the property details container visible
     propertyDetailsContainer.classList.remove('hidden');
 }
+
+// Event listener for the real estate agent form submission
+const agentSearchForm = document.querySelector('#realestate-agent-search');
+agentSearchForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Retrieve the selected agent ID from the dropdown
+    const agentSelect = document.querySelector('#agent-select');
+    const selectedAgent = agentSelect.value;
+
+    console.log(agentSelect);
+    console.log(selectedAgent);
+
+    // Send request to the backend to fetch properties associated with the agent
+    fetch(`http://localhost:3000/agentProperties?agentName=${selectedAgent}`)
+
+        .then(response => response.json())
+        .then(data => displayAgentProperties(data))
+        .catch(error => console.log(error));
+});
+
+// Display agent properties in an HTML table or other appropriate format
+function displayAgentProperties(data) {
+    // Your code here to handle and display the data.
+    // This could be similar to the displaySearchResults() and displayPropertyDetails() functions.
+    console.log("printing");
+    console.log(data);
+    const searchResultsContainer = document.querySelector("#agent-search-results");
+
+    // Create or clear the search results table
+    let table = searchResultsContainer.querySelector('table');
+    if (!table) {
+        table = document.createElement('table');
+        table.innerHTML = `
+        <caption>Property Search Results</caption>
+            <thead>
+                <tr>
+                    <th>Listing ID</th>
+                    <th>Address</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
+        searchResultsContainer.appendChild(table);
+    } else {
+        table.querySelector('tbody').innerHTML = '';
+    }
+
+    // Populate the table with search results
+    if (data.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td colspan="4">No results found.</td>`;
+        table.querySelector('tbody').appendChild(row);
+    } else {
+        data.forEach(result => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${result.ListingID}</td>
+                <td>${result.Address}</td>
+                <td>${result['Listing Price']}</td>
+                <td>${result['Listing Status']}</td>
+            `;
+            table.querySelector('tbody').appendChild(row);
+        });
+    }
+
+    // Make the search results container visible
+    searchResultsContainer.classList.remove('hidden');
+
+}
+
 
 
