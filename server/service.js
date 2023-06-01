@@ -46,6 +46,46 @@ class Service {
             console.log(error);
         }
     }
+    async getAgents() {
+        try {
+          const query = "SELECT CONCAT(`First Name`, ' ', `Last Name`) AS `fullName` FROM Agent";
+          const results = await new Promise((resolve, reject) => {
+            connection.query(query, (error, results) => {
+                if (error) {
+                    reject(new Error(error.message));
+                } else {
+                    resolve(results);
+                }
+            });
+          });
+            const agentNames = results.map((row) => row.fullName);
+            return agentNames;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    }
+
+    async getZipcodes() {
+        try {
+            const query = "SELECT `Zipcode` FROM zip";
+            const results = await new Promise((resolve, reject) => {
+                connection.query(query, (error, results) => {
+                    if (error) {
+                        reject(new Error(error.message));
+                    } else {
+                        resolve(results);
+                    }
+                });
+            });
+          
+            const zipcodes = results.map((row) => row.Zipcode);
+            return zipcodes;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    }
 
     async searchProperties(location, priceRange) {
         try {

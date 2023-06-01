@@ -7,37 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Web App</title>
-
-    <style>
-        .button-container {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .button-container button {
-            margin: 5px;
-        }
-
-        .hidden {
-            display: none;
-        }
-        .form-field {
-            display: flex;
-            align-items: center;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-    
-        .form-field label {
-            margin-right: 5px;
-        }
-    
-        .form-buttons {
-            display: flex;
-            align-items: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -75,14 +44,17 @@
             </select>
 
             <button type="submit">Search</button>
-            <button type="button" id="add-listing-button">Add Listing</button>
+            <button type="button" id="add-listing-button">Add/Update Listing</button>
         </form>
 
         <!-- Property Search Results -->
         <div id="property-search-results"></div>
 
         <!-- Drop Down menu for adding listing -->
-        <div id="listing-dropdown" style="display: none; position: absolute; top: 12%; left: 50%; transform: translate(-50%, -50%);">
+        <div id="listing-dropdown" style="display: none; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%);"> 
+            <label for="agent-name-input">Agent Name:</label>
+            <select id="agent-name-input" name="agentName"></select>
+
             <label for="listing-status-input">Listing Status:</label>
             <select id="listing-status-input" name="listingStatus">
                 <option value="active">Active</option>
@@ -93,9 +65,13 @@
             <label for="street-name-input">Street Name:</label>
             <input type="text" id="street-name-input" name="streetName">
 
-            <label for="listing-price-input">Price:</label>
-            <input type="text" id="listing-price-input" name="listingPrice">
-        
+            <label for="zip-input">Zipcode:</label>
+            <select id="zip-input" name="zipcode"></select>
+
+            <div style="display: inline-flex">
+                <label for="listing-price-input">Price:</label>
+                <input type="text" id="listing-price-input" name="listingPrice">
+            </div>
             <!-- Additional input fields for listing information can be added here -->
         
             <button type="button" id="save-listing-button">Save Listing</button>

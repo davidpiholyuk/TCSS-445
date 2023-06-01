@@ -43,6 +43,20 @@ app.get('/getAll', (request, response) => {
     // });
 });
 
+app.get('/Agents', (request, response) => {
+    const db = service.getServiceInstance();
+    db.getAgents()
+      .then(data => response.json({ data: data }))
+      .catch(error => console.log(error));
+});
+
+app.get('/Zipcodes', (request, response) => {
+    const db = service.getServiceInstance();
+    db.getZipcodes()
+      .then(data => response.json({ data: data }))
+      .catch(error => console.log(error));
+});
+
 
 //read
 app.get('/search', (request, response) => {
