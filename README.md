@@ -38,21 +38,21 @@ Open the .env file in a text editor.
 Define the following environment variables, each on a separate line:
 
 
--PORT=<port_number>
--DB_USER=<database_username>
--DB_PASSWORD=<database_password>
--DB_NAME=<database_name>
--DB_HOST=<database_host>
--DB_PORT=<database_port>
+- PORT=<port_number>
+- DB_USER=<database_username>
+- DB_PASSWORD=<database_password>
+- DB_NAME=<database_name>
+- DB_HOST=<database_host>
+- DB_PORT=<database_port>
 
 Replace the placeholder values (<port_number>, <database_username>, etc.) with the appropriate values for your setup. For example:
 
--PORT=3000
--DB_USER=myuser
--DB_PASSWORD=mypassword
--DB_NAME=mydatabase
--DB_HOST=localhost
--DB_PORT=3306
+- PORT=3000
+- DB_USER=myuser
+- DB_PASSWORD=mypassword
+- DB_NAME=mydatabase
+- DB_HOST=localhost
+- DB_PORT=3306
 
 Save the .env file.
 
