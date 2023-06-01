@@ -7,56 +7,317 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Web App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section h2 {
+            margin-top: 0;
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-field label {
+            width: 120px;
+        }
+
+        .form-field select,
+        .form-field input[type="text"] {
+            flex: 1;
+            padding: 5px;
+        }
+
+        .form-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .form-buttons button {
+            margin-left: 10px;
+        }
+
+        .property-details {
+            margin-top: 20px;
+        }
+
+        .property-search-results {
+            margin-top: 20px;
+        }
+
+        #listing-dropdown {
+            display: none;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #listing-dropdown label {
+            display: inline-block;
+            margin-top: 10px;
+            white-space: nowrap;
+            font-weight: bold;
+            width: 120px;
+        }
+
+        #listing-dropdown select {
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #listing-dropdown input[type="text"] {
+            width: 100%;
+            height: 50%;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #listing-dropdown-header {
+            margin-top: 30px;
+        }
+
+        #save-listing-button {
+            width: 100%;
+            height: 100%;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
 </head>
 
 <body>
-    <main>
-        
-        <br><br><br>
+    <div class="container">
+        <div class="form-section">
+            <h2>Property Search</h2>
+            <form id="property-search-form">
+                <div class="form-field">
+                    <label for="location-input">Location:</label>
+                    <select id="location-input" name="location">
+                        <option value="">Any</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="San Francisco">San Francisco</option>
+                        <option value="San Diego">San Diego</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="price-range-input">Price Range:</label>
+                    <select id="price-range-input" name="priceRange">
+                        <option value="">Any</option>
+                        <option value="0-100000">$0 - $100,000</option>
+                        <option value="100000-200000">$100,000 - $200,000</option>
+                        <option value="200000-300000">$200,000 - $300,000</option>
+                        <option value="300000-400000">$300,000 - $400,000</option>
+                        <option value="400000-500000">$400,000 - $500,000</option>
+                        <option value="500000-600000">$500,000 - $600,000</option>
+                        <option value="600000-700000">$600,000 - $700,000</option>
+                        <option value="700000-800000">$700,000 - $800,000</option>
+                        <option value="800000-900000">$800,000 - $900,000</option>
+                        <option value="900000-1000000">$900,000 - $1,000,000</option>
+                        <!-- Add more price ranges as needed -->
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Search</button>
+                    <button type="button" id="add-listing-button">Add Listing</button>
+                </div>
+            </form>
+        </div>
 
-        <!-- Property Search Form -->
-        <form id="property-search-form">
-            <label for="location-input">Location:</label>
-            <input type="text" id="location-input" name="location">
+        <div class="form-section property-selection-form">
 
-            <label for="property-type-input">Property Type:</label>
-            <select id="property-type-input" name="propertyType">
+            <form id="property-selection-form">
+                <h2>Address Search</h2>
+
+                <div class="form-field">
+
+                    <label for="address-select">Select Address:</label>
+                    <select id="address-select" name="address">
+                        <option value="">Choose an address</option>
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Show Property Details</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-section agent-search">
+            <form id="realestate-agent-search">
+                <h2>Agent Search</h2>
+                <div class="form-field">
+                    <label for="agent-select">Select Agent:</label>
+                    <select id="agent-select" name="agent">
+                        <option value="">Choose a Real Estate Agent</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Doe</option>
+
+                        <!-- Add more options for other agents -->
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Show Agents</button>
+                </div>
+            </form>
+        </div>
+
+        <form id="city-select-form">
+            <h2>Average Price</h2>
+            <label for="city-select">Choose a city:</label>
+            <select id="city-select">
+
                 <option value="">Any</option>
-                <option value="House">House</option>
-                <option value="Apartment">Apartment</option>
-                <option value="Condo">Condo</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="San Francisco">San Francisco</option>
+                <option value="San Diego">San Diego</option>
             </select>
-
-            <label for="price-range-input">Price Range:</label>
-            <select id="price-range-input" name="priceRange">
-                <option value="">Any</option>
-                <option value="0-100000">$0 - $100,000</option>
-                <option value="100000-200000">$100,000 - $200,000</option>
-                <option value="200000-300000">$200,000 - $300,000</option>
-                <option value="300000-400000">$300,000 - $400,000</option>
-                <option value="400000-500000">$400,000 - $500,000</option>
-                <option value="500000-600000">$500,000 - $600,000</option>
-                <option value="600000-700000">$600,000 - $700,000</option>
-                <option value="700000-800000">$700,000 - $800,000</option>
-                <option value="800000-900000">$800,000 - $900,000</option>
-                <option value="900000-1000000">$900,000 - $1,000,000</option>
-                <!-- Add more price ranges as needed -->
-            </select>
-
-            <button type="submit">Search</button>
+            <input type="submit" value="Submit">
         </form>
 
-        <!-- Property Search Results -->
-        <div id="property-search-results"></div>
+        <h2>Number of Homes Sold</h2>
 
+        <form id="homes-sold-form">
+            <label for="city-select">Show Homes Sold:</label>
 
-    </main>
+            <button type="submit">Submit</button>
+        </form>
 
+        <div id="homes-sold-results" class="hidden">
+            <table>
+                <caption>Homes Sold Results</caption>
+                <thead>
+                    <tr>
+                        <th>City Name</th>
+                        <th>Number of Homes Sold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
 
+        <div id="property-details" class="hidden">
+            <!-- Property details will be displayed here -->
+        </div>
 
+        <div id="property-search-results" class="hidden">
+            <!-- Property search results will be displayed here -->
+        </div>
+
+        <div id="agent-search-results" class="hidden">
+            <!-- Agent search results will be displayed here -->
+        </div>
+
+        <div id="average-price-results">
+            <!-- The average price will be displayed here -->
+        </div>
+
+        <div id="homes-sold-results" class="hidden">
+
+        </div>
+
+        <div id="listing-dropdown-header" class="hidden">
+            <h2>Add/Update Listing</h2>
+        </div>
+        <!--dropdown menu-->
+        <div id="listing-dropdown" class="hidden">     
+            <p>If you do not fill out all fields no updates will be made. 
+                This form assumes all input is in the correct format, use whole numbers only.
+                If the form disappears after you hit save listing that means the values have been
+                added to the database. 
+            </p>
+
+            <label for="agent-name-input">Agent Name:</label>
+            <select id="agent-name-input" name="agentName"></select>
+
+            <label for="listing-status-input">Listing Status:</label>
+            <select id="listing-status-input" name="listingStatus">
+                <option value="Active">Active</option>
+                <option value="Sold">Sold</option>
+                <option value="Pending">Pending</option>
+            </select>
+        
+            <label for="street-name-input">Street Name:</label>
+            <input type="text" id="street-name-input" name="streetName">
+
+            <label for="zip-input">Zipcode:</label>
+            <select id="zip-input" name="zipcode"></select>
+
+            <label for="bedroom-input">Number of Bedrooms:</label>
+            <input type="text" id="bedroom-input" name="bedrooms">
+
+            <label for="bathroom-input">Number of Bathrooms:</label>
+            <input type="text" id="bathroom-input" name="bathrooms">
+
+            <label for="units-input">Number of Units:</label>
+            <input type="text" id="units-input" name="units">
+
+            <label for="sq-input">Square Footage (Total):</label>
+            <input type="text" id="sq-input" name="squareft">
+
+            <label for="year-input">Year Built:</label>
+            <input type="text" id="year-input" name="year">
+
+            <label for="lot-input">Lot Size (Sq. Ft.):</label>
+            <input type="text" id="lot-input" name="lotSize">
+
+            <label for="appraisal-input">Appraisal Value:</label>
+            <input type="text" id="appraisal-input" name="appraisal">
+            
+            <label for="tax-input">Last Years Taxes Paid:</label>
+            <input type="text" id="tax-input" name="taxes">
+
+            <label for="listing-price-input">Price:</label>
+            <input type="text" id="listing-price-input" name="price">
+            
+            <!-- Additional input fields for listing information can be added here -->
+        
+            <button type="button" id="save-listing-button">Save Listing</button>
+        </div>
+
+        <div class="button-container">
+            <button type="button" id="cancel-listing-button" class="hidden">Cancel</button>
+        </div>
+    </div>
 
     <script src="index.js"></script>
-
 </body>
 
 </html>
