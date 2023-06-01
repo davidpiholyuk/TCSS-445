@@ -1,4 +1,4 @@
-Instructions:
+**Instructions:**
 
 
 Install Node.js by visiting the official website: https://nodejs.org/en/download/ and follow the instructions for your operating system.
@@ -10,12 +10,12 @@ express
 mysql2
 dotenv
 
-Cloning the Repository:
+**Cloning the Repository:**
 
 
-Clone the repository to your local machine. You can use Git or download the repository as a zip file and extract it.
+Clone the repository to your local machine.
 
-Changing Directory:
+**Changing Directory:**
 
 
 Open your terminal/command prompt.
@@ -24,7 +24,7 @@ On Windows, you can use the following command: cd path/to/project/server
 On macOS/Linux, you can use the following command: cd path/to/project/server
 
 
-Creating and Setting Up the .env File:
+**Creating and Setting Up the .env File:**
 
 
 Inside the server folder, create a new file and name it .env. Ensure that the filename starts with a dot and has no extension.
@@ -50,7 +50,7 @@ DB_PORT=3306
 Save the .env file.
 
 
-Installing Dependencies:
+**Installing Dependencies:**
 
 
 In the terminal/command prompt, make sure you are in the server folder.
@@ -62,7 +62,7 @@ npm install nodemon express mysql2 dotenv
 This command will install the required packages (nodemon, express, mysql2, dotenv) using npm (Node Package Manager).
 
 
-Starting the Server:
+**Starting the Server:**
 
 Make sure you have a MySQL database set up and properly configured with the required credentials and connection details before running the server.
 
