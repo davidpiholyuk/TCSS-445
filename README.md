@@ -25,8 +25,8 @@ Clone the repository to your local machine.
 
 Open your terminal/command prompt.
 Navigate to the server folder in the project directory.
-On Windows, you can use the following command: cd path/to/project/server
-On macOS/Linux, you can use the following command: cd path/to/project/server
+On Windows, you can use the following command: `cd path/to/project/server`
+On macOS/Linux, you can use the following command: `cd path/to/project/server`
 
 ---
 
@@ -38,21 +38,22 @@ Open the .env file in a text editor.
 Define the following environment variables, each on a separate line:
 
 
-PORT=<port_number>
-DB_USER=<database_username>
-DB_PASSWORD=<database_password>
-DB_NAME=<database_name>
-DB_HOST=<database_host>
-DB_PORT=<database_port>
+-PORT=<port_number>
+-DB_USER=<database_username>
+-DB_PASSWORD=<database_password>
+-DB_NAME=<database_name>
+-DB_HOST=<database_host>
+-DB_PORT=<database_port>
 
 Replace the placeholder values (<port_number>, <database_username>, etc.) with the appropriate values for your setup. For example:
 
-PORT=3000
-DB_USER=myuser
-DB_PASSWORD=mypassword
-DB_NAME=mydatabase
-DB_HOST=localhost
-DB_PORT=3306
+-PORT=3000
+-DB_USER=myuser
+-DB_PASSWORD=mypassword
+-DB_NAME=mydatabase
+-DB_HOST=localhost
+-DB_PORT=3306
+
 Save the .env file.
 
 ---
@@ -64,7 +65,7 @@ In the terminal/command prompt, make sure you are in the server folder.
 
 Run the following command to install the dependencies:
 
-npm install nodemon express mysql2 dotenv
+`npm install nodemon express mysql2 dotenv`
 
 This command will install the required packages (nodemon, express, mysql2, dotenv) using npm (Node Package Manager).
 
@@ -76,4 +77,4 @@ Make sure you have a MySQL database set up and properly configured with the requ
 
 In the terminal/command prompt, still inside the server folder, run the following command to start the server:
 
-npm start
+`npm start`
