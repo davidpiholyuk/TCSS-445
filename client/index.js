@@ -21,6 +21,24 @@ propertySearchForm.addEventListener('submit', function (event) {
         .then(data => displaySearchResults(data.data));
 });
 
+//populate address search selection bar
+fetch('http://localhost:3000/Addresses')
+    .then(response => response.json())
+    .then(addressResponse => {
+        console.log(addressResponse);
+        const addresses = addressResponse.data;
+        // Access the dropdown select element
+        const dropdownSelect = document.getElementById('address-select');
+
+        // Iterate over the agent names and create option elements
+        addresses.forEach(address => {
+            const option = document.createElement('option');
+            option.value = address; // Set the value of the option to the agent name
+            option.textContent = address; // Set the visible text of the option to the agent name
+            dropdownSelect.appendChild(option); // Append the option to the dropdown select element
+        });
+    })
+
 // Get a reference to the "Add Listing" button
 const addListingButton = document.getElementById("add-listing-button");
 
@@ -85,27 +103,76 @@ saveListingButton.addEventListener("click", function () {
 
     // Retrieve the selected values from the dropdown menu
     const agentName = document.getElementById("agent-name-input").value;
-    const listingType = document.getElementById("listing-status-input").value;
+    const listingStatus = document.getElementById("listing-status-input").value;
     const streetName = document.getElementById("street-name-input").value;
     const zipcode = document.getElementById("zip-input").value;
+    const bedrooms = document.getElementById("bedroom-input").value;
+    const bathrooms = document.getElementById("bathroom-input").value;
+    const units = document.getElementById("units-input").value;
+    const squareFeet = document.getElementById("sq-input").value;
+    const year = document.getElementById("year-input").value;
+    const lot = document.getElementById("lot-input").value;
+    const appraisal = document.getElementById("appraisal-input").value;
+    const tax = document.getElementById("tax-input").value;
     const listingPrice = document.getElementById("listing-price-input").value;
-
+        
     //If the required fields aren't filled out do nothing
-    if (!streetName || !zipcode) {
+    if (!agentName || !listingStatus || !streetName || !zipcode || !bedrooms
+        || !bathrooms || !units || !squareFeet || !year || !lot || !appraisal || !tax || !listingPrice ) {
         return;
     }
-
-    // Perform further processing or validation with the selected values
-    console.log("Listing Type:", listingType);
-    console.log("Street Name:", streetName);
-    console.log("Listing Price:", listingPrice);
-
+        
+    const data = {
+        agent: agentName,
+        listingStatus: listingStatus,
+        street: streetName,
+        zip: zipcode,
+        bedrooms: bedrooms,
+        bathrooms: bathrooms,
+        units: units,
+        sqft: squareFeet,
+        year: year,
+        lot: lot,
+        appraisal: appraisal,
+        tax: tax,
+        price: listingPrice,
+    };
+        
+    //insert the data into database
+    fetch('http://localhost:3000/insert', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+        },
+        body: JSON.stringify(data), // Convert the data object to a JSON string
+      })
+        .then(response => response.json())
+        .then(result => {
+          // Handle the response from the server
+          console.log(result);
+        })
+        .catch(error => {
+          // Handle any errors that occurred during the request
+          console.error(error);
+        });
+        
     // Hide the dropdown menu
+    listingDropdownHead.style.display = "none";
     listingDropdown.style.display = "none";
-
+        
     // Clear the input fields
+    document.getElementById("agent-name-input").value = "";
     document.getElementById("listing-status-input").value = "";
     document.getElementById("street-name-input").value = "";
+    document.getElementById("zip-input").value = "";
+    document.getElementById("bedroom-input").value = "";
+    document.getElementById("bathroom-input").value = "";
+    document.getElementById("units-input").value = "";
+    document.getElementById("sq-input").value = "";
+    document.getElementById("year-input").value = "";
+    document.getElementById("lot-input").value = "";
+    document.getElementById("appraisal-input").value = "";
+    document.getElementById("tax-input").value = "";
     document.getElementById("listing-price-input").value = "";
 });
 

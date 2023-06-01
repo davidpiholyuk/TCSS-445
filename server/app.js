@@ -20,15 +20,35 @@ app.use(express.urlencoded({ extended: false }));
 
 /**routes*/
 
-// create
+// Insert data into db
 app.post('/insert', (request, response) => {
-    console.log(request.body);
-    const { name } = request.body;
     const db = service.getServiceInstance();
-    const result = db.insertNewName(name);
-    result
-        .then(data => response.json({ success: true }))
-        .catch(err => console.log(err));
+    const {
+      agent,
+      listingStatus,
+      street,
+      zip,
+      bedrooms,
+      bathrooms,
+      units,
+      sqft,
+      year,
+      lot,
+      appraisal,
+      tax,
+      price,
+    } = request.body;    
+    console.log(request.body);
+
+    // Call the insertNewData method on your database service instance
+    db.insertNewData(agent, listingStatus, street, zip, bedrooms, bathrooms, units, sqft, year, lot, appraisal, tax, price)
+     .then(() => {
+       response.json({ success: true });
+     })
+     .catch(error => {
+       console.error(error);
+       response.json({ success: false, error: error.message });
+    });
 });
 
 // read
@@ -78,6 +98,13 @@ app.get('/agentProperties', (request, response) => {
         .catch(err => console.log(err));
 });
 
+app.get('/Addresses', (request, response) => {
+    const db = service.getServiceInstance();
+    db.getAddresses()
+        .then(data => response.json({ data: data }))
+        .catch(error => console.log(error));
+});
+
 app.get('/Agents', (request, response) => {
     const db = service.getServiceInstance();
     db.getAgents()
@@ -107,14 +134,5 @@ app.get('/homesSold', (request, response) => {
       .then(data => response.json({ data: data }))
       .catch(err => console.log(err));
   });
-  
-
-
-
-// update
-
-// delete
-
-
 
 app.listen(process.env.PORT, () => console.log('app is running'));

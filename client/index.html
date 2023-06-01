@@ -170,10 +170,6 @@
                     <label for="address-select">Select Address:</label>
                     <select id="address-select" name="address">
                         <option value="">Choose an address</option>
-                        <option value="1">100 Main St</option>
-                        <option value="2">200 Main St</option>
-                        <option value="3">300 Main St</option>
-                        <!-- Add more options for other addresses -->
                     </select>
                 </div>
                 <div class="form-buttons">
@@ -261,19 +257,23 @@
             <h2>Add/Update Listing</h2>
         </div>
         <!--dropdown menu-->
-        <div id="listing-dropdown" class="hidden">
-            <p>If you do not fill out all fields no updates will be made.
-                This form assumes all input is in the correct format, use whole numbers only.</p>
+        <div id="listing-dropdown" class="hidden">     
+            <p>If you do not fill out all fields no updates will be made. 
+                This form assumes all input is in the correct format, use whole numbers only.
+                If the form disappears after you hit save listing that means the values have been
+                added to the database. 
+            </p>
+
             <label for="agent-name-input">Agent Name:</label>
             <select id="agent-name-input" name="agentName"></select>
 
             <label for="listing-status-input">Listing Status:</label>
             <select id="listing-status-input" name="listingStatus">
-                <option value="active">Active</option>
-                <option value="sold">Sold</option>
-                <option value="pending">Pending</option>
+                <option value="Active">Active</option>
+                <option value="Sold">Sold</option>
+                <option value="Pending">Pending</option>
             </select>
-
+        
             <label for="street-name-input">Street Name:</label>
             <input type="text" id="street-name-input" name="streetName">
 
@@ -300,18 +300,15 @@
 
             <label for="appraisal-input">Appraisal Value:</label>
             <input type="text" id="appraisal-input" name="appraisal">
-
-            <label for="zip-input">Zipcode:</label>
-            <input type="text" type="text" id="zip-input" name="zipcode">
-
+            
             <label for="tax-input">Last Years Taxes Paid:</label>
             <input type="text" id="tax-input" name="taxes">
 
             <label for="listing-price-input">Price:</label>
             <input type="text" id="listing-price-input" name="price">
-
+            
             <!-- Additional input fields for listing information can be added here -->
-
+        
             <button type="button" id="save-listing-button">Save Listing</button>
         </div>
 
