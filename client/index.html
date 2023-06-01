@@ -178,29 +178,33 @@
         <div id="agent-search-results" class="hidden">
             <!-- Agent search results will be displayed here -->
         </div>
+        <div id="listing-dropdown-header" class="hidden"> <h2>Add/Update Listing</h2> </div>
+        <!--dropdown menu-->
+        <div id="listing-dropdown" class="hidden"> 
+            
 
-        <div id="listing-dropdown" class="hidden">
-            <h2>Add Listing</h2>
-            <div class="form-field">
-                <label for="listing-status-input">Listing Status:</label>
-                <select id="listing-status-input" name="listingStatus">
-                    <option value="active">Active</option>
-                    <option value="sold">Sold</option>
-                    <option value="pending">Pending</option>
-                </select>
-            </div>
-            <div class="form-field">
-                <label for="street-name-input">Street Name:</label>
-                <input type="text" id="street-name-input" name="streetName">
-            </div>
-            <div class="form-field">
-                <label for="listing-price-input">Price:</label>
-                <input type="text" id="listing-price-input" name="listingPrice">
-            </div>
+            <label for="agent-name-input">Agent Name:</label>
+            <select id="agent-name-input" name="agentName"></select>
+
+            <label for="listing-status-input">Listing Status:</label>
+            <select id="listing-status-input" name="listingStatus">
+                <option value="active">Active</option>
+                <option value="sold">Sold</option>
+                <option value="pending">Pending</option>
+            </select>
+        
+            <label for="street-name-input">Street Name:</label>
+            <input type="text" id="street-name-input" name="streetName">
+
+            <label for="zip-input">Zipcode:</label>
+            <select id="zip-input" name="zipcode"></select>
+
+            <label for="listing-price-input">Price:</label>
+            <input type="text" id="listing-price-input" name="listingPrice">
+            
             <!-- Additional input fields for listing information can be added here -->
-            <div class="form-buttons">
-                <button type="button" id="save-listing-button">Save Listing</button>
-            </div>
+        
+            <button type="button" id="save-listing-button">Save Listing</button>
         </div>
 
         <div class="button-container">

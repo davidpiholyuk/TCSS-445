@@ -21,24 +21,87 @@ propertySearchForm.addEventListener('submit', function (event) {
         .then(data => displaySearchResults(data.data));
 });
 
-// Event listener for the "Add Listing" button click event
+// Get a reference to the "Add Listing" button
 const addListingButton = document.getElementById("add-listing-button");
+
+// Get a reference to the dropdown menu
 const listingDropdown = document.getElementById("listing-dropdown");
-addListingButton.addEventListener("click", function () {
-    // Show the dropdown menu
-    listingDropdown.style.display = "block";
+const listingDropdownHead = document.getElementById("listing-dropdown-header");
+// Add an event listener to handle the button click event
+addListingButton.addEventListener("click", function() {
+    if(listingDropdown.style.display == "none") {
+       // Populate agent selection list
+        fetch('http://localhost:3000/Agents')
+            .then(response => response.json())
+            .then(agentNames => {
+                console.log(agentNames.data);
+                const agents = agentNames.data;
+                // Access the dropdown select element
+                const dropdownSelect = document.getElementById('agent-name-input');
+
+                // Iterate over the agent names and create option elements
+                agents.forEach(agentName => {
+                    const option = document.createElement('option');
+                    option.value = agentName; // Set the value of the option to the agent name
+                    option.textContent = agentName; // Set the visible text of the option to the agent name
+                    dropdownSelect.appendChild(option); // Append the option to the dropdown select element
+                });
+        }) 
+
+        // Populate zipcode selection list
+        fetch('http://localhost:3000/Zipcodes')
+            .then(response => response.json())
+            .then(zipcodes => {
+                console.log(zipcodes.data);
+                const zips = zipcodes.data;
+                // Access the dropdown select element
+                const dropdownSelect = document.getElementById('zip-input');
+
+                // Iterate over the agent names and create option elements
+                zips.forEach(zip => {
+                    const option = document.createElement('option');
+                    option.value = zip; // Set the value of the option to the agent name
+                    option.textContent = zip; // Set the visible text of the option to the agent name
+                    dropdownSelect.appendChild(option); // Append the option to the dropdown select element
+                });
+        }) 
+        listingDropdownHead.style.display = "flex";
+        listingDropdown.style.display = "flex"; 
+    } else {
+        const agentdropdownSelect = document.getElementById('agent-name-input');
+        agentdropdownSelect.innerHTML = '';
+        const zipdropdownSelect = document.getElementById('zip-input');
+        zipdropdownSelect.innerHTML = '';
+        listingDropdown.style.display = "none";
+        listingDropdownHead.style.display = "none";
+    }
 });
 
-// Event listener for the "Save Listing" button click event
+// Get a reference to the "Save Listing" button
 const saveListingButton = document.getElementById("save-listing-button");
-saveListingButton.addEventListener("click", function () {
-    // Retrieve the selected values from the dropdown menu and perform further processing
+
+// Add an event listener to handle the button click event
+saveListingButton.addEventListener("click", function() {
+
+    // Retrieve the selected values from the dropdown menu
     const listingType = document.getElementById("listing-status-input").value;
     const streetName = document.getElementById("street-name-input").value;
     const listingPrice = document.getElementById("listing-price-input").value;
 
-    // Hide the dropdown menu and clear the input fields
+    //If the required fields aren't filled out do nothing
+    if (!listingType || !streetName || !listingPrice ) {
+        return;
+    }
+
+    // Perform further processing or validation with the selected values
+    console.log("Listing Type:", listingType);
+    console.log("Street Name:", streetName);
+    console.log("Listing Price:", listingPrice);
+
+    // Hide the dropdown menu
     listingDropdown.style.display = "none";
+
+    // Clear the input fields
     document.getElementById("listing-status-input").value = "";
     document.getElementById("street-name-input").value = "";
     document.getElementById("listing-price-input").value = "";
