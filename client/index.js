@@ -66,7 +66,7 @@ addListingButton.addEventListener("click", function () {
                 });
             })
         listingDropdownHead.style.display = "flex";
-        listingDropdown.style.display = "flex";
+        listingDropdown.style.display = "grid";
     } else {
         const agentdropdownSelect = document.getElementById('agent-name-input');
         agentdropdownSelect.innerHTML = '';
@@ -84,12 +84,14 @@ const saveListingButton = document.getElementById("save-listing-button");
 saveListingButton.addEventListener("click", function () {
 
     // Retrieve the selected values from the dropdown menu
+    const agentName = document.getElementById("agent-name-input").value;
     const listingType = document.getElementById("listing-status-input").value;
     const streetName = document.getElementById("street-name-input").value;
+    const zipcode = document.getElementById("zip-input").value;
     const listingPrice = document.getElementById("listing-price-input").value;
 
     //If the required fields aren't filled out do nothing
-    if (!listingType || !streetName || !listingPrice) {
+    if (!streetName || !zipcode) {
         return;
     }
 

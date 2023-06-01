@@ -53,8 +53,6 @@
             margin-left: 10px;
         }
 
-
-
         .property-details {
             margin-top: 20px;
         }
@@ -63,16 +61,53 @@
             margin-top: 20px;
         }
 
-        .listing-dropdown {
+        #listing-dropdown {
             display: none;
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f9f9f9;
             padding: 20px;
+            background-color: #f2f2f2;
             border: 1px solid #ccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        #listing-dropdown label {
+            display: inline-block;
+            margin-top: 10px;
+            white-space: nowrap;
+            font-weight: bold;
+            width: 120px;
+        }
+
+        #listing-dropdown select {
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #listing-dropdown input[type="text"] {
+            width: 100%;
+            height: 50%;
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #listing-dropdown-header {
+            margin-top: 30px;
+        }
+
+        #save-listing-button {
+            width: 100%;
+            height: 100%;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         .hidden {
@@ -178,9 +213,6 @@
             <input type="submit" value="Submit">
         </form>
 
-
-
-
         <div id="property-details" class="hidden">
             <!-- Property details will be displayed here -->
         </div>
@@ -201,9 +233,9 @@
             <h2>Add/Update Listing</h2>
         </div>
         <!--dropdown menu-->
-        <div id="listing-dropdown" class="hidden">
-
-
+        <div id="listing-dropdown" class="hidden">     
+            <p>If you do not fill out all fields no updates will be made. 
+                This form assumes all input is in the correct format, use whole numbers only.</p>
             <label for="agent-name-input">Agent Name:</label>
             <select id="agent-name-input" name="agentName"></select>
 
@@ -213,18 +245,45 @@
                 <option value="sold">Sold</option>
                 <option value="pending">Pending</option>
             </select>
-
+        
             <label for="street-name-input">Street Name:</label>
             <input type="text" id="street-name-input" name="streetName">
 
             <label for="zip-input">Zipcode:</label>
             <select id="zip-input" name="zipcode"></select>
 
+            <label for="bedroom-input">Number of Bedrooms:</label>
+            <input type="text" id="bedroom-input" name="bedrooms">
+
+            <label for="bathroom-input">Number of Bathrooms:</label>
+            <input type="text" id="bathroom-input" name="bathrooms">
+
+            <label for="units-input">Number of Units:</label>
+            <input type="text" id="units-input" name="units">
+
+            <label for="sq-input">Square Footage (Total):</label>
+            <input type="text" id="sq-input" name="squareft">
+
+            <label for="year-input">Year Built:</label>
+            <input type="text" id="year-input" name="year">
+
+            <label for="lot-input">Lot Size (Sq. Ft.):</label>
+            <input type="text" id="lot-input" name="lotSize">
+
+            <label for="appraisal-input">Appraisal Value:</label>
+            <input type="text" id="appraisal-input" name="appraisal">
+
+            <label for="zip-input">Zipcode:</label>
+            <input type="text" type="text" id="zip-input" name="zipcode">
+            
+            <label for="tax-input">Last Years Taxes Paid:</label>
+            <input type="text" id="tax-input" name="taxes">
+
             <label for="listing-price-input">Price:</label>
-            <input type="text" id="listing-price-input" name="listingPrice">
-
+            <input type="text" id="listing-price-input" name="price">
+            
             <!-- Additional input fields for listing information can be added here -->
-
+        
             <button type="button" id="save-listing-button">Save Listing</button>
         </div>
 
